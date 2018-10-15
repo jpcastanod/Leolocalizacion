@@ -41,7 +41,7 @@
     
     <center>
       <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar" >
-      <input type="submit" value="Localizar" class="btn btn-success" name="btn_localizar">
+
 
     </center>
 
