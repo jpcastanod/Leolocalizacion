@@ -71,8 +71,15 @@
         $nombre = $_POST ['nombre'];
         $autor = $_POST ['autor'];
 
+       
+
          $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1 WHERE (nombre LIKE'%$nombre%' or autor = '$autor') and '$nombre' IS NOT NULL " );
+         if ($nombre == "" and $autor == "" ){
+            echo "Llene por lo menos un campo";
+         }
+         else {
            while($consulta = mysqli_fetch_array($resultados))
+         
          {
           ?>
           <tr>
@@ -145,13 +152,9 @@
           
 
         }
-
       }
 
-      
-      
- 
-
+      }
 
 
     
@@ -169,8 +172,6 @@
 </div>
 
 
-
-  
   
 </body>
 </html>
