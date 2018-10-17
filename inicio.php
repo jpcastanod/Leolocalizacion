@@ -28,7 +28,7 @@
       }
       if(isset($_POST['btn_adm']))
       {   
-        header ("Location: administrador.php");
+        header ("Location: autentificacion.php");
       }
       ?>
 </body>
