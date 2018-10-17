@@ -25,81 +25,185 @@
     <form method="POST" action="administrador.php" >
     <div class="form-group">
       <label for="doc">Id</label>
-      <input type="text" name="doc" class="form-control" id="doc">
+      <input type="text" name="id" class="form-control" id="id">
     </div>
 
     <div class="form-group">
       <label for="doc">Nombre</label>
-      <input type="text" name="doc" class="form-control" id="doc">
+      <input type="text" name="nombre" class="form-control" id="nombre">
     </div>
 
     <div class="form-group">
         <label for="nombre">Autor </label>
-        <input type="text" name="nombre" class="form-control" id="nombre" >
+        <input type="text" name="autor" class="form-control" id="autor" >
     </div>
 
     <div class="form-group">
         <label for="dir">Editorial </label>
-        <input type="text" name="dir" class="form-control" id="dir">
+        <input type="text" name="editorial" class="form-control" id="editorial">
     </div>
 
     <div class="form-group">
         <label for="tel">Año </label>
-        <input type="text" name="tel" class="form-control" id="tel">
+        <input type="text" name="anio" class="form-control" id="anio">
+    </div>
+        <div class="form-group">
+        <label for="tel">Estanteria </label>
+        <input type="text" name="estanteria" class="form-control" id="estanteria">
     </div>
     
     <center>
       <input type="submit" value="Registrar" class="btn btn-success" name="btn_registrar">
       <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar">
-      <input type="submit" value="Actualizar" class="btn btn-info" name="btn_actualizar">
       <input type="submit" value="Eliminar" class="btn btn-danger" name="btn_eliminar">
     </center>
 
   </form>
 
+ <div class = "col-xs-12">
+      <table class = "table table-striped">
+      <thead>
+        <tr>
+          <th witdh = 100>ID </th> 
+          <th witdh = 100>Nombre </th> 
+          <th witdh = 100>Autor</th>
+          <th witdh = 100>Editorial </th>
+          <th witdh = 100>Año de publicación </th>
+          <th witdh = 100>Estantería </th>
+        </tr>
+      </thead>
+      <tbody>
+
   <?php
     include("abrir_conexion.php");
-      
-      $doc    ="";
-      $nombre ="";
-      $dir    ="";
-      $tel    ="";
 
-      if(isset($_POST['btn_registrar']))
-      {      
-        echo "Presiono el boton Registrar";
-      }
+
 
       if(isset($_POST['btn_consultar']))
       {
-         $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1" );
+        $id = $_POST['id'];
+        $nombre = $_POST ['nombre'];
+        $autor = $_POST ['autor'];
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+        
+       
+
+         $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1 WHERE (nombre = '$nombre' or autor = '$autor' or id = '$id' or editorial = '$editorial' or anio = '$anio' or estanteria = '$estanteria' ) and '$nombre' IS NOT NULL " );
+         if ($nombre == "" and $autor == "" and $editorial == "" and $anio == "" and $id == "" and $estanteria = ""){
+            echo "Llene por lo menos un campo";
+         }
+         else {
            while($consulta = mysqli_fetch_array($resultados))
+         
+         
          {
-          echo $consulta['nombre']. "<br>";
-          echo $consulta['autor']. "<br>";
-          echo $consulta['editorial']. "<br>";
-          echo $consulta['anio']. "<br>";
+          ?>
+          <tr>
+            <td><?php echo $consulta['id']. "<br>"; ?></td>
+            <td><?php echo $consulta['nombre']. "<br>"; ?></td>
+            <?php $estanteria = $consulta['estanteria'];
+            ?>
+            <td><?php echo $consulta['autor']. "<br>"; ?></td>
+            <td><?php echo $consulta['editorial']. "<br>"; ?> </td>
+            <td><?php echo $consulta['anio']. "<br>"; ?> </td>
+            <td><?php echo $consulta['estanteria']. "<br>"; ?></td>
+            <?php 
+            if ($estanteria >= 1 and $estanteria <=3){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/1a3.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 4 and $estanteria <=5){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/3a5.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 6 and $estanteria <=9){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/6a9.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 10 and $estanteria <=12){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/10a12.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 13 and $estanteria <=15){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/13a15.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 16 and $estanteria <=18){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/16a18.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+            <?php 
+            if ($estanteria >= 19 and $estanteria <=21){
+              ?>
+              <td><?php echo "<a href='http://localhost/integrador/6a9.png'>Localizar</a>". "<br>"; ?></td>
+              <?php
+            }
+            ?>
+
+            
+
+
+
+            </tr>
+
+          <?php
+
+          
+
+        }
+      }
+
+      }
+  
+       if(isset($_POST['btn_registrar'])) {
+        $id = $_POST['id'];
+        $nombre = $_POST ['nombre'];
+        $autor = $_POST ['autor'];
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+          mysqli_query($conexion, "INSERT INTO $tabla_db1 
+          (id,nombre,autor,editorial,anio,estanteria) 
+         values 
+          ('$id','$nombre','$autor','$editorial','$anio','$estanteria')");
+
+          echo "Se ha registrado con éxito";
+
+        }
+        if(isset($_POST['btn_eliminar'])) {
+        $id = $_POST['id'];
+        $nombre = $_POST ['nombre'];
+        $autor = $_POST ['autor'];
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+          $_DELETE_SQL =  "DELETE FROM $tabla_db1 WHERE id = '$id'";
+          mysqli_query($conexion,$_DELETE_SQL);
         }
 
-      }
-
-      if(isset($_POST['btn_actualizar']))
-      {
-        echo "Presiono el boton actualizar";
-      }
-
-      if(isset($_POST['btn_eliminar']))
-      {
-        echo "Presiono el boton eliminar";
-      }
-
-    include("cerrar_conexion.php");
   ?>
-
-  </div>
-
-
-<!-- TERMINA LA COLUMNA -->
+</tbody>
+</table>
+</div>
 
 
 
@@ -107,8 +211,5 @@
 </div>
 
 
-
-  
-  
 </body>
 </html>
