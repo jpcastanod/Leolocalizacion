@@ -1,7 +1,4 @@
 <html>
-<?php 
-
-?>
 <head>
   <title> </title>
   <!-- Latest compiled and minified CSS -->
@@ -13,7 +10,7 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
-<body style = "background-color:powderblue; ">
+<body>
 
 <div class="row">
   <div class="col-md-4"></div>
@@ -23,21 +20,17 @@
 
   <div class="col-md-4">
 
- 
-      <center> <img src="logo.png" width="300" /> </center>
- 
+    <center><h1>LEOLOCALIZACION</h1></center>
 
-    <form method="POST" action="usuario.php" >
-
-                            
-     <img src="atras.png" width="60" style="position: absolute;top: 4%; position: absolute;left: -20%"></img>
-     <img src="ayuda.png" width="60" style="position: absolute;top: 4%; position: absolute;left: 100%"></img>
-                 
+    <form method="POST" action="administrador.php" >
     <div class="form-group">
+      <label for="doc">Id</label>
+      <input type="text" name="id" class="form-control" id="id">
+    </div>
 
     <div class="form-group">
       <label for="doc">Nombre</label>
-      <input type="text" name="nombre" class="form-control" id="nombre" >
+      <input type="text" name="nombre" class="form-control" id="nombre">
     </div>
 
     <div class="form-group">
@@ -45,20 +38,34 @@
         <input type="text" name="autor" class="form-control" id="autor" >
     </div>
 
+    <div class="form-group">
+        <label for="dir">Editorial </label>
+        <input type="text" name="editorial" class="form-control" id="editorial">
+    </div>
+
+    <div class="form-group">
+        <label for="tel">Año </label>
+        <input type="text" name="anio" class="form-control" id="anio">
+    </div>
+        <div class="form-group">
+        <label for="tel">Estanteria </label>
+        <input type="text" name="estanteria" class="form-control" id="estanteria">
+    </div>
     
     <center>
-      <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar" >
-      
-
-
+      <input type="submit" value="Registrar" class="btn btn-success" name="btn_registrar">
+      <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar">
+      <input type="submit" value="Eliminar" class="btn btn-danger" name="btn_eliminar">
+      <input type="submit" value="Obtener estadísticas" class="btn btn-success" name="btn_estadistica">
     </center>
 
-
   </form>
-  <div class = "col-xs-12">
+
+ <div class = "col-xs-12">
       <table class = "table table-striped">
       <thead>
         <tr>
+          <th witdh = 100>ID </th> 
           <th witdh = 100>Nombre </th> 
           <th witdh = 100>Autor</th>
           <th witdh = 100>Editorial </th>
@@ -71,34 +78,34 @@
   <?php
     include("abrir_conexion.php");
 
-
-
+    if(isset($_POST['btn_estadistica'])){
+        header ("Location: estadistica.php");
+    }
       if(isset($_POST['btn_consultar']))
       {
-        
+        $id = $_POST['id'];
         $nombre = $_POST ['nombre'];
         $autor = $_POST ['autor'];
-        $buscado = 0;
-        $b_Id = 0;
-
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+        
        
 
-         $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1 WHERE (nombre LIKE'%$nombre%' or autor = '$autor') and '$nombre' IS NOT NULL " );
-         if ($nombre == "" and $autor == "" ){
+         $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1 WHERE (nombre = '$nombre' or autor = '$autor' or id = '$id' or editorial = '$editorial' or anio = '$anio' or estanteria = '$estanteria' ) and '$nombre' IS NOT NULL " );
+         if ($nombre == "" and $autor == "" and $editorial == "" and $anio == "" and $id == "" and $estanteria = ""){
             echo "Llene por lo menos un campo";
          }
          else {
-
-           while($consulta = mysqli_fetch_array($resultados))         
+           while($consulta = mysqli_fetch_array($resultados))
+         
+         
          {
-
-
           ?>
           <tr>
+            <td><?php echo $consulta['id']. "<br>"; ?></td>
             <td><?php echo $consulta['nombre']. "<br>"; ?></td>
             <?php $estanteria = $consulta['estanteria'];
-                  $b_Id = $consulta['id'];
-                  $buscado = (int)$consulta['buscado'] +1;
             ?>
             <td><?php echo $consulta['autor']. "<br>"; ?></td>
             <td><?php echo $consulta['editorial']. "<br>"; ?> </td>
@@ -142,7 +149,7 @@
             <?php 
             if ($estanteria >= 16 and $estanteria <=18){
               ?>
-              <td><?php echo "<a href='http://localhost/integrador/16a182.png'>Localizar</a>". "<br>"; ?></td>
+              <td><?php echo "<a href='http://localhost/integrador/16a18.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
             ?>
@@ -152,34 +159,53 @@
               <td><?php echo "<a href='http://localhost/integrador/6a9.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
-
             ?>
 
             
+
+
+
             </tr>
 
           <?php
-           $_UPDATE_SQL="UPDATE $tabla_db1 Set 
-            buscado='$buscado'
-            WHERE id='$b_Id'"; 
-            mysqli_query($conexion,$_UPDATE_SQL);
+
+          
 
         }
-
       }
 
       }
+  
+       if(isset($_POST['btn_registrar'])) {
+        $id = $_POST['id'];
+        $nombre = $_POST ['nombre'];
+        $autor = $_POST ['autor'];
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+          mysqli_query($conexion, "INSERT INTO $tabla_db1 
+          (id,nombre,autor,editorial,anio,estanteria,buscado) 
+         values 
+          ('$id','$nombre','$autor','$editorial','$anio','$estanteria',0)");
 
+          echo "Se ha registrado con éxito";
 
-    
+        }
+        if(isset($_POST['btn_eliminar'])) {
+        $id = $_POST['id'];
+        $nombre = $_POST ['nombre'];
+        $autor = $_POST ['autor'];
+        $editorial = $_POST ['editorial'];
+        $anio = $_POST ['anio'];
+        $estanteria = $_POST['estanteria'];
+          $_DELETE_SQL =  "DELETE FROM $tabla_db1 WHERE id = '$id'";
+          mysqli_query($conexion,$_DELETE_SQL);
+        }
+
   ?>
 </tbody>
 </table>
-
-  </div>
-
-
-<!-- TERMINA LA COLUMNA -->
+</div>
 
 
 
@@ -187,7 +213,5 @@
 </div>
 
 
-
-  
 </body>
 </html>
