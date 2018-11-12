@@ -56,6 +56,8 @@
       <input type="submit" value="Registrar" class="btn btn-success" name="btn_registrar">
       <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar">
       <input type="submit" value="Eliminar" class="btn btn-danger" name="btn_eliminar">
+      <input type="submit" value="Obtener estadísticas" class="btn btn-success" name="btn_estadistica">
+      <input type="submit" value="Registrar archivo" class="btn btn-success" name="btn_archivo">
     </center>
 
   </form>
@@ -76,9 +78,13 @@
 
   <?php
     include("abrir_conexion.php");
+    if(isset($_POST['btn_archivo'])){
+        header ("Location: archivo.php");
+    }
 
-
-
+    if(isset($_POST['btn_estadistica'])){
+        header ("Location: estadistica.php");
+    }
       if(isset($_POST['btn_consultar']))
       {
         $id = $_POST['id'];
@@ -112,6 +118,7 @@
             <?php 
             if ($estanteria >= 1 and $estanteria <=3){
               ?>
+              
               <td><?php echo "<a href='http://localhost/integrador/1a3.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
@@ -182,9 +189,9 @@
         $anio = $_POST ['anio'];
         $estanteria = $_POST['estanteria'];
           mysqli_query($conexion, "INSERT INTO $tabla_db1 
-          (id,nombre,autor,editorial,anio,estanteria) 
+          (id,nombre,autor,editorial,anio,estanteria,buscado) 
          values 
-          ('$id','$nombre','$autor','$editorial','$anio','$estanteria')");
+          ('$id','$nombre','$autor','$editorial','$anio','$estanteria',0)");
 
           echo "Se ha registrado con éxito";
 
