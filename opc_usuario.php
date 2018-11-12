@@ -28,7 +28,7 @@
       }
       if(isset($_POST['btn_lugares']))
       {   
-        
+        header ("Location: lugares.php");
       }
       ?>
 </body>
