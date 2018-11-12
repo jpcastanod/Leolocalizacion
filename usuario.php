@@ -13,7 +13,7 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
-<body>
+<body style = "background-color:powderblue; ">
 
 <div class="row">
   <div class="col-md-4"></div>
@@ -23,9 +23,16 @@
 
   <div class="col-md-4">
 
-    <center><h1>LEOLOCALIZACION</h1></center>
+ 
+      <center> <img src="logo.png" width="300" /> </center>
+ 
 
     <form method="POST" action="usuario.php" >
+
+                            
+     <img src="atras.png" width="60" style="position: absolute;top: 4%; position: absolute;left: -20%"></img>
+     <img src="ayuda.png" width="60" style="position: absolute;top: 4%; position: absolute;left: 100%"></img>
+                 
     <div class="form-group">
 
     <div class="form-group">
@@ -41,6 +48,7 @@
     
     <center>
       <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar" >
+      
 
 
     </center>
@@ -70,6 +78,8 @@
         
         $nombre = $_POST ['nombre'];
         $autor = $_POST ['autor'];
+        $buscado = 0;
+        $b_Id = 0;
 
        
 
@@ -78,15 +88,18 @@
             echo "Llene por lo menos un campo";
          }
          else {
-           while($consulta = mysqli_fetch_array($resultados))
-         
+
+           while($consulta = mysqli_fetch_array($resultados))         
          {
+
+
           ?>
           <tr>
             <td><?php echo $consulta['nombre']. "<br>"; ?></td>
             <?php $estanteria = $consulta['estanteria'];
+                  $b_Id = $consulta['id'];
+                  $buscado = (int)$consulta['buscado'] +1;
             ?>
-
             <td><?php echo $consulta['autor']. "<br>"; ?></td>
             <td><?php echo $consulta['editorial']. "<br>"; ?> </td>
             <td><?php echo $consulta['anio']. "<br>"; ?> </td>
@@ -129,7 +142,7 @@
             <?php 
             if ($estanteria >= 16 and $estanteria <=18){
               ?>
-              <td><?php echo "<a href='http://localhost/integrador/16a18.png'>Localizar</a>". "<br>"; ?></td>
+              <td><?php echo "<a href='http://localhost/integrador/16a182.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
             ?>
@@ -139,19 +152,20 @@
               <td><?php echo "<a href='http://localhost/integrador/6a9.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
+
             ?>
 
             
-
-
-
             </tr>
 
           <?php
-
-          
+           $_UPDATE_SQL="UPDATE $tabla_db1 Set 
+            buscado='$buscado'
+            WHERE id='$b_Id'"; 
+            mysqli_query($conexion,$_UPDATE_SQL);
 
         }
+
       }
 
       }
@@ -161,6 +175,7 @@
   ?>
 </tbody>
 </table>
+
   </div>
 
 
@@ -170,6 +185,7 @@
 
   <div class="col-md-4"></div>
 </div>
+
 
 
   
