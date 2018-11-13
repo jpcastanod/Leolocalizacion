@@ -55,7 +55,7 @@
     <center>
       <input type="submit" value="Registrar" class="btn btn-success" name="btn_registrar">
       <input type="submit" value="Consultar" class="btn btn-primary" name="btn_consultar">
-      <input type="submit" value="Eliminar" class="btn btn-danger" name="btn_eliminar">
+      <input type="submit" value="Eliminar" class="btn btn-danger" onclick = " return confirm('¿Seguro desea eliminar el libro?')" name="btn_eliminar">
       <input type="submit" value="Obtener estadísticas" class="btn btn-success" name="btn_estadistica">
       <input type="submit" value="Registrar archivo" class="btn btn-success" name="btn_archivo">
     </center>
@@ -126,7 +126,7 @@
             <?php 
             if ($estanteria >= 4 and $estanteria <=5){
               ?>
-              <td><?php echo "<a href='http://localhost/integrador/3a5.png'>Localizar</a>". "<br>"; ?></td>
+              <td><?php echo "<a href='http://localhost/integrador/4a5.png'>Localizar</a>". "<br>"; ?></td>
               <?php
             }
             ?>
