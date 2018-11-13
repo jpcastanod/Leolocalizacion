@@ -1,15 +1,13 @@
 <?php 
-	// Parametros a configurar para la conexion de la base de datos 
-	$host = "localhost";    // sera el valor de nuestra BD 
-	$basededatos = "biblioteca";    // sera el valor de nuestra BD 
-	$usuariodb = "root";    // sera el valor de nuestra BD 
-	$clavedb = "pcwYCR18";    // sera el valor de nuestra BD 
-
-	//Lista de Tablas
-	$tabla_db1 = "libro"; 	   // tabla de usuarios
+	 
+	$host = "localhost";    
+	$basededatos = "biblioteca";    
+	$usuariodb = "root";     
+	$clavedb = "pcwYCR18";    
+	$tabla_db1 = "libro"; 	   
 	
 
-	//error_reporting(0); //No me muestra errores
+
 	
 	$conexion = new mysqli($host,$usuariodb,$clavedb,$basededatos);
 
