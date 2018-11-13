@@ -57,7 +57,6 @@
      if(isset($_POST['btn_localizar']))
       {      
         $lugar = $_POST['lugar'];
-
         if($lugar=="1"){
           ?>
           <center>
