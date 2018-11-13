@@ -42,9 +42,11 @@ $(function () {
             type: 'pie',
             name: 'Ha sido buscado',
             data: [<?php
+                $contador = 0;
                 include("conexion/abrir_conexion.php");
                 $resultados = mysqli_query($conexion,"SELECT * FROM $tabla_db1");
-                while($consulta = mysqli_fetch_array($resultados)){
+                while($consulta = mysqli_fetch_array($resultados) and $contador < 20){
+                    $contador = $contador +1;
                     $buscado = (int)$consulta['buscado']
                     ?>
                     ['<?php echo $consulta ['nombre'];?>', <?php echo $consulta ['buscado']?> ] , 
