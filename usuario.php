@@ -80,6 +80,9 @@
         $autor = $_POST ['autor'];
         $buscado = 0;
         $b_Id = 0;
+        if ($autor != "" and $nombre == ""){
+          $nombre = "981117/555*!#QSssadsad";
+        }
 
        
 
